@@ -14,6 +14,11 @@
       "name": "marketing-skills",
       "description": "50 marketing skills for technical marketers and founders: CRO, copywriting, cold email, prospecting, SEO, AI SEO, paid ads, SMS, ad creative, video production, image generation, co-marketing, churn prevention, pricing, referrals, revenue operations, sales enablement, customer research, site architecture, comprehensive AARRR-structured marketing plans, public relations and earned media, offer design, event marketing and webinars, and more",
       "source": "./"
+    },
+    {
+      "name": "equipe-rene",
+      "description": "Equipe de agentes da mentoria de René Cecconello: cérebro do projeto, gestor de tráfego (Meta Ads), minerador de call e social media.",
+      "source": "./plugins/equipe-rene"
     }
   ]
 }
