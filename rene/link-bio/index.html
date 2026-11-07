@@ -134,7 +134,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--dourado)
   <section class="abertura">
     <p class="olho">Por onde começar</p>
     <h1>Me conta em que cadeira você está hoje.</h1>
-    <p class="sub">Cada opção abaixo abre uma conversa comigo no WhatsApp. <b>Toque no cartão que mais parece com o seu momento</b> e a gente começa por ali.</p>
+    <p class="sub">Cada opção abaixo abre uma conversa no WhatsApp da Equipe Rene Cecconello. <b>Toque no cartão que mais parece com o seu momento</b> e a gente começa por ali.</p>
   </section>
 
   <section class="secao" aria-labelledby="s1">
@@ -190,7 +190,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--dourado)
   <section class="secao" aria-labelledby="s3">
     <h2 id="s3">Sou dono ou sócio</h2>
 
-    <a class="cartao" data-msg="Olá, Rene! Sou dono/sócio e quero saber sobre o Programa para Diretores." href="#">
+    <a class="cartao" data-msg="Olá, Equipe Rene Cecconello! Sou dono/sócio e quero saber sobre o Programa para Diretores." href="#">
       <div class="linha-topo">
         <span class="etiqueta">Programa para diretores</span>
       </div>
@@ -203,7 +203,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--dourado)
   <section class="secao" aria-labelledby="s4">
     <h2 id="s4">Sou empresa</h2>
 
-    <a class="cartao" data-msg="Olá, Rene! Falo em nome de uma empresa e quero conversar sobre um programa para nossos líderes." href="#">
+    <a class="cartao" data-msg="Olá, Equipe Rene Cecconello! Falo em nome de uma empresa e quero conversar sobre um programa para nossos líderes." href="#">
       <div class="linha-topo">
         <span class="etiqueta">Programas corporativos</span>
       </div>
@@ -430,9 +430,9 @@ function concluir(enviado){
     titulo.textContent = "Recebi as suas respostas.";
     /* o lead segue para o WhatsApp só com o aviso; as respostas já foram para o e-mail */
     var nome = (document.getElementById("f-nome").value || "").trim();
-    var link = wa("Olá, Rene! Acabei de enviar minha aplicação para a " + produto + ". Meu nome é " + nome + ".");
-    texto.textContent = "Vou ler tudo com atenção. Agora vou te levar para o meu WhatsApp para a gente seguir a conversa.";
-    botao.hidden = false; botao.textContent = "Falar com o Rene no WhatsApp"; botao.href = link;
+    var link = wa("Olá, Equipe Rene Cecconello! Acabei de enviar minha aplicação para a " + produto + ". Meu nome é " + nome + ".");
+    texto.textContent = "Vou ler tudo com atenção. Agora você vai para o WhatsApp da Equipe Rene Cecconello para seguirmos a conversa.";
+    botao.hidden = false; botao.textContent = "Falar com a Equipe Rene Cecconello"; botao.href = link;
     setTimeout(function(){ location.href = link; }, 2500);
   } else {
     olho.textContent = "Não enviado";
