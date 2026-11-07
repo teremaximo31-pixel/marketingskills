@@ -345,7 +345,7 @@ var CONFIG = {
   whatsapp: "5554996591213",          /* 55 + DDD + número, só dígitos */
   emailRene: "renececconello@gmail.com", /* e-mail que recebe as aplicações */
   checkout: {                          /* links de checkout da Kiwify */
-    abreCarteira: "COLE_AQUI_O_LINK_DO_CHECKOUT_KIWIFY"
+    abreCarteira: "https://pay.kiwify.com.br/jl1nI9D"
   },
   paginaCompra: {                      /* página de compra de cada mentoria (opcional); vazio = só mostra a confirmação */
     "Mentoria individual": "",
@@ -458,14 +458,18 @@ form.addEventListener("submit", function(e){
   if (!validar(atual)) return;
   if (atual < 4) { mostrar(atual + 1); return; }
   var dados = coletar();
-  dados._subject = "Nova aplicação: " + produto + " (" + (dados["Nome"] || "") + ")";
-  dados._template = "table";
-  dados._captcha = "false";
   btnSeguir.disabled = true; btnSeguir.textContent = "Enviando...";
+  /* cópia de segurança no servidor (não bloqueia o envio) */
+  fetch("aplicacao.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(dados) }).catch(function(){});
+  /* e-mail para o Rene */
+  var email = Object.assign({}, dados, {
+    _subject: "Nova aplicação: " + produto + " (" + (dados["Nome"] || "") + ")",
+    _template: "table", _captcha: "false"
+  });
   fetch("https://formsubmit.co/ajax/" + CONFIG.emailRene, {
     method: "POST",
     headers: { "Content-Type": "application/json", "Accept": "application/json" },
-    body: JSON.stringify(dados)
+    body: JSON.stringify(email)
   }).then(function(r){ return r.json(); })
     .then(function(j){ concluir(String(j.success) === "true"); })
     .catch(function(){ concluir(false); })
