@@ -332,7 +332,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--dourado)
         <p class="olho">Aplicação enviada</p>
         <h2>Recebi as suas respostas.</h2>
         <p class="intro" id="final-texto">Vou ler com atenção. Agora você já pode garantir a sua vaga.</p>
-        <a class="botao" id="final-botao" href="#" target="_blank" rel="noopener">Continuar</a>
+        <a class="botao" id="final-botao" href="#" hidden>Continuar</a>
       </div>
     </form>
   </div>
@@ -342,8 +342,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--dourado)
 /* ===== CONFIGURAÇÃO: só mexa aqui ===== */
 var CONFIG = {
   whatsapp: "5554996591213",          /* 55 + DDD + número, só dígitos */
-  emailRene: "EMAIL_DO_RENE_AQUI",     /* e-mail que recebe as aplicações */
-  paginaCompra: {                      /* página de compra de cada mentoria; vazio = segue para o WhatsApp */
+  emailRene: "reneseconello@gmail.com", /* e-mail que recebe as aplicações */
+  paginaCompra: {                      /* página de compra de cada mentoria (opcional); vazio = só mostra a confirmação */
     "Mentoria individual": "",
     "Mentoria em grupo": ""
   }
@@ -418,21 +418,28 @@ function resumo(d){
   return Object.keys(d).filter(function(k){ return k.charAt(0) !== "_"; })
     .map(function(k){ return k + ": " + d[k]; }).join("\n");
 }
-function concluir(enviado, dados){
+function concluir(enviado){
   var destino = CONFIG.paginaCompra[produto];
   var botao = document.getElementById("final-botao"), texto = document.getElementById("final-texto");
-  if (enviado && destino) {
-    texto.textContent = "Vou ler com atenção. Agora você já pode garantir a sua vaga.";
-    botao.textContent = "Garantir minha vaga"; botao.href = destino;
-    setTimeout(function(){ location.href = destino; }, 2500);
-  } else if (enviado) {
-    texto.textContent = "Vou ler com atenção e te chamo no WhatsApp. Se preferir, já me manda uma mensagem.";
-    botao.textContent = "Falar com o Rene no WhatsApp";
-    botao.href = wa("Olá, Rene! Acabei de enviar minha aplicação para a " + produto + ". Meu nome é " + (dados["Nome"] || "") + ".");
+  var olho = document.querySelector("#final .olho"), titulo = document.querySelector("#final h2");
+  botao.onclick = null; botao.removeAttribute("target");
+  if (enviado) {
+    olho.textContent = "Aplicação enviada";
+    titulo.textContent = "Recebi as suas respostas.";
+    if (destino) {
+      texto.textContent = "Vou ler com atenção. Agora você já pode garantir a sua vaga.";
+      botao.hidden = false; botao.textContent = "Garantir minha vaga"; botao.href = destino;
+      setTimeout(function(){ location.href = destino; }, 2500);
+    } else {
+      texto.textContent = "Vou ler tudo com atenção e entro em contato com você em breve.";
+      botao.hidden = true;
+    }
   } else {
-    texto.textContent = "Não consegui enviar por aqui. Toque no botão para me mandar as suas respostas pelo WhatsApp, elas já vão escritas.";
-    botao.textContent = "Enviar respostas pelo WhatsApp";
-    botao.href = wa("Olá, Rene! Minha aplicação:\n\n" + resumo(dados));
+    olho.textContent = "Não enviado";
+    titulo.textContent = "Sua aplicação ainda não chegou até mim.";
+    texto.textContent = "Houve uma falha na conexão. Suas respostas continuam aqui, toque no botão para enviar de novo.";
+    botao.hidden = false; botao.textContent = "Enviar de novo"; botao.href = "#";
+    botao.onclick = function(e){ e.preventDefault(); form.requestSubmit(); };
   }
   document.getElementById("miolo").hidden = true;
   document.getElementById("final").hidden = false;
@@ -453,8 +460,8 @@ form.addEventListener("submit", function(e){
     headers: { "Content-Type": "application/json", "Accept": "application/json" },
     body: JSON.stringify(dados)
   }).then(function(r){ return r.json(); })
-    .then(function(j){ concluir(String(j.success) === "true", dados); })
-    .catch(function(){ concluir(false, dados); })
+    .then(function(j){ concluir(String(j.success) === "true"); })
+    .catch(function(){ concluir(false); })
     .finally(function(){ btnSeguir.disabled = false; });
 });
 </script>
