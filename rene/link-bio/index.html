@@ -346,10 +346,6 @@ var CONFIG = {
   emailRene: "renececconello@gmail.com", /* e-mail que recebe as aplicações */
   checkout: {                          /* páginas de destino dos produtos */
     abreCarteira: "https://xn--forjaliderana-tgb.com.br/"
-  },
-  paginaCompra: {                      /* página de compra de cada mentoria (opcional); vazio = só mostra a confirmação */
-    "Mentoria individual": "",
-    "Mentoria em grupo": ""
   }
 };
 /* ====================================== */
@@ -426,21 +422,18 @@ function resumo(d){
     .map(function(k){ return k + ": " + d[k]; }).join("\n");
 }
 function concluir(enviado){
-  var destino = CONFIG.paginaCompra[produto];
   var botao = document.getElementById("final-botao"), texto = document.getElementById("final-texto");
   var olho = document.querySelector("#final .olho"), titulo = document.querySelector("#final h2");
   botao.onclick = null; botao.removeAttribute("target");
   if (enviado) {
     olho.textContent = "Aplicação enviada";
     titulo.textContent = "Recebi as suas respostas.";
-    if (destino) {
-      texto.textContent = "Vou ler com atenção. Agora você já pode garantir a sua vaga.";
-      botao.hidden = false; botao.textContent = "Garantir minha vaga"; botao.href = destino;
-      setTimeout(function(){ location.href = destino; }, 2500);
-    } else {
-      texto.textContent = "Vou ler tudo com atenção e entro em contato com você em breve.";
-      botao.hidden = true;
-    }
+    /* o lead segue para o WhatsApp só com o aviso; as respostas já foram para o e-mail */
+    var nome = (document.getElementById("f-nome").value || "").trim();
+    var link = wa("Olá, Rene! Acabei de enviar minha aplicação para a " + produto + ". Meu nome é " + nome + ".");
+    texto.textContent = "Vou ler tudo com atenção. Agora vou te levar para o meu WhatsApp para a gente seguir a conversa.";
+    botao.hidden = false; botao.textContent = "Falar com o Rene no WhatsApp"; botao.href = link;
+    setTimeout(function(){ location.href = link; }, 2500);
   } else {
     olho.textContent = "Não enviado";
     titulo.textContent = "Sua aplicação ainda não chegou até mim.";
