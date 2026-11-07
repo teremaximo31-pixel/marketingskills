@@ -25,6 +25,7 @@
   color-scheme:dark;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{background:var(--preto)}
 body{margin:0;background:var(--preto);color:var(--texto);font-family:var(--corpo);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--preto)}
@@ -80,6 +81,42 @@ a.cartao:hover .botao.contorno{background:var(--dourado-fundo)}
 .metodo p{margin:12px 0 0;font-size:15px;color:var(--texto)}
 footer{margin-top:32px;padding-top:18px;border-top:1px solid var(--chumbo);font-size:13px;color:var(--cinza);text-align:center}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* Aplicação */
+.painel{position:fixed;inset:0;z-index:20;background:var(--preto);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.painel .wrap{padding-block:calc(env(safe-area-inset-top,0px) + 14px) calc(env(safe-area-inset-bottom,0px) + 40px)}
+.painel-topo{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.fechar{background:none;border:1.5px solid var(--chumbo-claro);color:var(--branco);border-radius:999px;height:42px;padding:0 16px;font:700 14px var(--corpo);cursor:pointer}
+.fechar:focus-visible,.nav button:focus-visible{outline:3px solid var(--dourado-vivo);outline-offset:2px}
+.progresso{margin-top:18px;height:4px;background:var(--chumbo);border-radius:4px;overflow:hidden}
+.progresso i{display:block;height:100%;width:25%;background:var(--dourado);transition:width .3s}
+.passo-info{margin:10px 0 0;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--cinza);font-weight:700}
+.painel h2{font-family:var(--display);font-weight:600;font-size:clamp(26px,7vw,32px);line-height:1.15;color:var(--branco);margin:10px 0 6px;text-wrap:balance}
+.painel .intro{margin:0 0 6px;color:var(--texto);font-size:16px}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+.passo{display:flex;flex-direction:column;gap:22px;margin-top:22px}
+.campo{display:flex;flex-direction:column;gap:8px;min-width:0}
+.campo>label,.campo legend{font-weight:700;color:var(--branco);font-size:16px;padding:0;line-height:1.4}
+.campo .dica{font-size:14px;color:var(--cinza);margin-top:-4px}
+.campo legend{margin-bottom:8px}
+input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;font:500 16px var(--corpo);color:var(--branco);background:var(--cartao);border:1.5px solid var(--chumbo-claro);border-radius:10px;padding:14px;min-height:52px}
+textarea{min-height:110px;resize:vertical;line-height:1.5}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--dourado)}
+.opcoes{display:flex;flex-direction:column;gap:8px}
+.opcoes label{display:flex;align-items:flex-start;gap:12px;background:var(--cartao);border:1.5px solid var(--chumbo-claro);border-radius:10px;padding:14px;cursor:pointer;color:var(--texto);font-size:15.5px;line-height:1.4}
+.opcoes label:has(input:checked){border-color:var(--dourado);background:var(--dourado-fundo);color:var(--branco)}
+.opcoes input{accent-color:var(--dourado);width:20px;height:20px;flex:none;margin:0}
+.erro{display:none;color:#f0a58f;font-size:14px;font-weight:600}
+.campo.invalido .erro{display:block}
+.campo.invalido input,.campo.invalido select,.campo.invalido textarea,.campo.invalido .opcoes label{border-color:#b9614a}
+.nav{display:flex;gap:10px;margin-top:28px}
+.nav button{flex:1;min-height:56px;border-radius:10px;font:800 16.5px var(--corpo);cursor:pointer}
+.nav .voltar{flex:0 0 auto;padding:0 20px;background:transparent;color:var(--branco);border:1.5px solid var(--chumbo-claro)}
+.nav .seguir{background:var(--dourado);color:var(--preto);border:0}
+.nav .seguir:disabled{opacity:.6;cursor:wait}
+.final{text-align:left;padding-top:30px;display:flex;flex-direction:column;gap:14px}
+.final .botao{text-decoration:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 </style>
 </head>
 <body>
@@ -128,7 +165,7 @@ footer{margin-top:32px;padding-top:18px;border-top:1px solid var(--chumbo);font-
     <h2 id="s2">Sou líder</h2>
     <p class="para">Coordenador, supervisor, gerente ou head. Você lidera pessoas e responde para alguém acima.</p>
 
-    <a class="cartao" data-msg="Olá, Rene! Quero aplicar para a Mentoria Individual." href="#">
+    <a class="cartao" data-aplicar="Mentoria individual" href="#aplicar">
       <div class="linha-topo">
         <span class="etiqueta">Mentoria individual</span>
         <span class="etiqueta neutra">Por aplicação</span>
@@ -138,7 +175,7 @@ footer{margin-top:32px;padding-top:18px;border-top:1px solid var(--chumbo);font-
       <span class="botao"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>Quero aplicar</span>
     </a>
 
-    <a class="cartao" data-msg="Olá, Rene! Quero aplicar para a Mentoria em Grupo." href="#">
+    <a class="cartao" data-aplicar="Mentoria em grupo" href="#aplicar">
       <div class="linha-topo">
         <span class="etiqueta">Mentoria em grupo</span>
         <span class="etiqueta neutra">Por aplicação</span>
@@ -185,13 +222,240 @@ footer{margin-top:32px;padding-top:18px;border-top:1px solid var(--chumbo);font-
   <footer>Rene Cecconello · Mentoria de líderes</footer>
 </div>
 
+<div class="painel" id="painel" hidden role="dialog" aria-modal="true" aria-labelledby="painel-titulo">
+  <div class="wrap">
+    <div class="painel-topo">
+      <span class="etiqueta" id="painel-produto">Mentoria individual</span>
+      <button type="button" class="fechar" id="fechar">Fechar</button>
+    </div>
+
+    <form id="form" novalidate>
+      <div id="miolo">
+        <div class="progresso" aria-hidden="true"><i id="barra"></i></div>
+        <p class="passo-info" id="passo-info">Etapa 1 de 4</p>
+
+        <fieldset class="passo" data-passo="1">
+          <div>
+            <h2 id="painel-titulo">Antes de conversarmos, quero entender o seu cenário.</h2>
+            <p class="intro">São poucas perguntas e levam uns 5 minutos. Eu leio todas as respostas antes de falar com você.</p>
+          </div>
+          <div class="campo"><label for="f-nome">Seu nome</label><input type="text" id="f-nome" name="Nome" autocomplete="name" required><span class="erro">Preencha o seu nome.</span></div>
+          <div class="campo"><label for="f-whats">Seu WhatsApp com DDD</label><input type="tel" id="f-whats" name="WhatsApp" autocomplete="tel" inputmode="tel" placeholder="(54) 99999-9999" required><span class="erro">Preencha o seu WhatsApp.</span></div>
+          <div class="campo"><label for="f-email">Seu e-mail</label><input type="email" id="f-email" name="email" autocomplete="email" required><span class="erro">Preencha um e-mail válido.</span></div>
+          <div class="campo"><label for="f-cargo">Qual é o seu cargo hoje?</label>
+            <select id="f-cargo" name="Cargo" required><option value="">Escolha</option><option>Coordenador(a)</option><option>Supervisor(a)</option><option>Gerente</option><option>Head ou diretor(a) de área</option><option>Dono(a) ou sócio(a)</option><option>Outro</option></select><span class="erro">Escolha o seu cargo.</span></div>
+          <div class="campo"><label for="f-segmento">Em que setor você trabalha?</label><input type="text" id="f-segmento" name="Setor" placeholder="Ex.: indústria, varejo, saúde, construção"></div>
+          <div class="campo"><label for="f-tempo">Há quanto tempo você lidera pessoas?</label>
+            <select id="f-tempo" name="Tempo liderando" required><option value="">Escolha</option><option>Menos de 1 ano</option><option>De 1 a 3 anos</option><option>De 3 a 5 anos</option><option>Mais de 5 anos</option></select><span class="erro">Escolha uma opção.</span></div>
+          <div class="campo"><label for="f-pessoas">Quantas pessoas você lidera diretamente?</label>
+            <select id="f-pessoas" name="Pessoas lideradas" required><option value="">Escolha</option><option>De 1 a 3</option><option>De 4 a 8</option><option>De 9 a 15</option><option>De 16 a 30</option><option>Mais de 30</option></select><span class="erro">Escolha uma opção.</span></div>
+        </fieldset>
+
+        <fieldset class="passo" data-passo="2" hidden>
+          <h2>O que está acontecendo na sua liderança</h2>
+          <div class="campo"><label for="f-clique">O que aconteceu para você clicar neste link hoje?</label><span class="dica">Pode ser uma situação concreta desta semana.</span><textarea id="f-clique" name="O que fez clicar no link" required></textarea><span class="erro">Conte o que te trouxe até aqui.</span></div>
+          <fieldset class="campo" data-grupo="Maiores dificuldades"><legend>Quais são as suas maiores dificuldades hoje? Marque quantas quiser.</legend>
+            <div class="opcoes">
+              <label><input type="checkbox" name="Maiores dificuldades" value="Se cobro, viro o chato. Se não cobro, abusam.">Se eu cobro, viro o chato. Se não cobro, abusam.</label>
+              <label><input type="checkbox" name="Maiores dificuldades" value="Explico a mesma coisa toda semana">Explico a mesma coisa toda semana</label>
+              <label><input type="checkbox" name="Maiores dificuldades" value="Só me levam a sério quando perco a paciência">Só me levam a sério quando perco a paciência</label>
+              <label><input type="checkbox" name="Maiores dificuldades" value="Adio conversas difíceis">Adio conversas difíceis</label>
+              <label><input type="checkbox" name="Maiores dificuldades" value="O time esquece o que foi combinado">O time esquece o que foi combinado</label>
+              <label><input type="checkbox" name="Maiores dificuldades" value="Tudo volta para a minha mesa">Tudo volta para a minha mesa</label>
+              <label><input type="checkbox" name="Maiores dificuldades" value="Sou desautorizado por quem está acima de mim">Sou desautorizado por quem está acima de mim</label>
+              <label><input type="checkbox" name="Maiores dificuldades" value="Dificuldade com gerações diferentes na equipe">Dificuldade com gerações diferentes na equipe</label>
+              <label><input type="checkbox" name="Maiores dificuldades" value="Não consigo tirar férias sem que tudo pare">Não consigo tirar férias sem que tudo pare</label>
+            </div><span class="erro">Marque pelo menos uma.</span></fieldset>
+          <div class="campo"><label for="f-tentou">O que você já tentou fazer e não deu certo?</label><span class="dica">Curso, livro, conversa com o chefe, mudança na rotina, o que for.</span><textarea id="f-tentou" name="O que já tentou e não deu certo" required></textarea><span class="erro">Conte o que você já tentou.</span></div>
+          <fieldset class="campo" data-grupo="Primeiro olhar quando algo dá errado"><legend>Quando algo dá errado na equipe, qual é a primeira coisa que você revisa?</legend>
+            <div class="opcoes">
+              <label><input type="radio" name="Primeiro olhar quando algo dá errado" value="O que a equipe deixou de fazer">O que a equipe deixou de fazer</label>
+              <label><input type="radio" name="Primeiro olhar quando algo dá errado" value="O que eu combinei e como acompanhei">O que eu combinei e como acompanhei</label>
+              <label><input type="radio" name="Primeiro olhar quando algo dá errado" value="O que veio de cima">O que veio de cima</label>
+              <label><input type="radio" name="Primeiro olhar quando algo dá errado" value="O processo">O processo</label>
+            </div><span class="erro">Escolha uma opção.</span></fieldset>
+        </fieldset>
+
+        <fieldset class="passo" data-passo="3" hidden>
+          <h2>O peso disso hoje</h2>
+          <div class="campo"><label for="f-custo">Se nada mudar nos próximos 6 meses, o que acontece com você e com a sua equipe?</label><textarea id="f-custo" name="Se nada mudar em 6 meses" required></textarea><span class="erro">Responda com as suas palavras.</span></div>
+          <fieldset class="campo" data-grupo="Urgência"><legend>Quando você precisa resolver isso?</legend>
+            <div class="opcoes">
+              <label><input type="radio" name="Urgência" value="Agora, já está me custando caro">Agora, já está me custando caro</label>
+              <label><input type="radio" name="Urgência" value="Nos próximos 3 meses">Nos próximos 3 meses</label>
+              <label><input type="radio" name="Urgência" value="Ainda estou pesquisando">Ainda estou pesquisando</label>
+            </div><span class="erro">Escolha uma opção.</span></fieldset>
+          <fieldset class="campo" data-grupo="Tempo para aplicar por semana"><legend>Quanto tempo por semana você consegue dedicar para aplicar o que trabalharmos?</legend>
+            <div class="opcoes">
+              <label><input type="radio" name="Tempo para aplicar por semana" value="Menos de 1 hora">Menos de 1 hora</label>
+              <label><input type="radio" name="Tempo para aplicar por semana" value="De 1 a 2 horas">De 1 a 2 horas</label>
+              <label><input type="radio" name="Tempo para aplicar por semana" value="Mais de 2 horas">Mais de 2 horas</label>
+            </div><span class="erro">Escolha uma opção.</span></fieldset>
+        </fieldset>
+
+        <fieldset class="passo" data-passo="4" hidden>
+          <h2>Investimento</h2>
+          <p class="intro">A mentoria é um investimento na sua carreira. Essas respostas me ajudam a indicar o formato certo para o seu momento.</p>
+          <fieldset class="campo" data-grupo="Faixa de renda mensal"><legend>Qual é a sua faixa de renda mensal?</legend>
+            <div class="opcoes">
+              <label><input type="radio" name="Faixa de renda mensal" value="Até R$ 5 mil">Até R$ 5 mil</label>
+              <label><input type="radio" name="Faixa de renda mensal" value="De R$ 5 mil a R$ 10 mil">De R$ 5 mil a R$ 10 mil</label>
+              <label><input type="radio" name="Faixa de renda mensal" value="De R$ 10 mil a R$ 20 mil">De R$ 10 mil a R$ 20 mil</label>
+              <label><input type="radio" name="Faixa de renda mensal" value="Acima de R$ 20 mil">Acima de R$ 20 mil</label>
+              <label><input type="radio" name="Faixa de renda mensal" value="Prefiro não informar">Prefiro não informar</label>
+            </div><span class="erro">Escolha uma opção.</span></fieldset>
+          <fieldset class="campo" data-grupo="Quem investe"><legend>Quem faria o investimento?</legend>
+            <div class="opcoes">
+              <label><input type="radio" name="Quem investe" value="Eu mesmo">Eu mesmo</label>
+              <label><input type="radio" name="Quem investe" value="A empresa">A empresa</label>
+              <label><input type="radio" name="Quem investe" value="Ainda não sei">Ainda não sei</label>
+            </div><span class="erro">Escolha uma opção.</span></fieldset>
+          <fieldset class="campo" data-grupo="Pronto para investir"><legend>Você está pronto para investir na sua carreira agora?</legend>
+            <div class="opcoes">
+              <label><input type="radio" name="Pronto para investir" value="Sim, estou pronto">Sim, estou pronto</label>
+              <label><input type="radio" name="Pronto para investir" value="Sim, se fizer sentido para o meu caso">Sim, se fizer sentido para o meu caso</label>
+              <label><input type="radio" name="Pronto para investir" value="Hoje não tenho como investir">Hoje não tenho como investir</label>
+            </div><span class="erro">Escolha uma opção.</span></fieldset>
+          <div class="campo"><label for="f-mais">Quer me contar mais alguma coisa? (opcional)</label><textarea id="f-mais" name="Mais alguma coisa"></textarea></div>
+          <fieldset class="campo" data-grupo="Autorização"><legend class="sr">Autorização</legend>
+            <div class="opcoes"><label><input type="checkbox" name="Autorização" value="Autorizo">Autorizo o uso destas respostas para avaliar minha aplicação e entrar em contato comigo.</label></div>
+            <span class="erro">Marque a autorização para enviar.</span></fieldset>
+        </fieldset>
+
+        <div class="nav">
+          <button type="button" class="voltar" id="voltar" hidden>Voltar</button>
+          <button type="submit" class="seguir" id="seguir">Continuar</button>
+        </div>
+      </div>
+
+      <div class="final" id="final" hidden>
+        <p class="olho">Aplicação enviada</p>
+        <h2>Recebi as suas respostas.</h2>
+        <p class="intro" id="final-texto">Vou ler com atenção. Agora você já pode garantir a sua vaga.</p>
+        <a class="botao" id="final-botao" href="#" target="_blank" rel="noopener">Continuar</a>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script>
-/* TROCAR AQUI: número do WhatsApp com 55 + DDD + número, só dígitos */
-var WHATSAPP = "5554999999999";
-document.querySelectorAll("a.cartao").forEach(function(a){
-  a.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(a.getAttribute("data-msg"));
-  a.target = "_blank";
-  a.rel = "noopener";
+/* ===== CONFIGURAÇÃO: só mexa aqui ===== */
+var CONFIG = {
+  whatsapp: "5554996591213",          /* 55 + DDD + número, só dígitos */
+  emailRene: "EMAIL_DO_RENE_AQUI",     /* e-mail que recebe as aplicações */
+  paginaCompra: {                      /* página de compra de cada mentoria; vazio = segue para o WhatsApp */
+    "Mentoria individual": "",
+    "Mentoria em grupo": ""
+  }
+};
+/* ====================================== */
+
+function wa(msg){ return "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(msg); }
+
+document.querySelectorAll("a.cartao[data-msg]").forEach(function(a){
+  a.href = wa(a.getAttribute("data-msg")); a.target = "_blank"; a.rel = "noopener";
+});
+
+var painel = document.getElementById("painel"), form = document.getElementById("form");
+var passos = form.querySelectorAll(".passo"), atual = 1, produto = "";
+var btnSeguir = document.getElementById("seguir"), btnVoltar = document.getElementById("voltar");
+
+function mostrar(n){
+  atual = n;
+  passos.forEach(function(p){ p.hidden = Number(p.dataset.passo) !== n; });
+  document.getElementById("barra").style.width = (n * 25) + "%";
+  document.getElementById("passo-info").textContent = "Etapa " + n + " de 4";
+  btnVoltar.hidden = n === 1;
+  btnSeguir.textContent = n === 4 ? "Enviar aplicação" : "Continuar";
+  painel.scrollTop = 0;
+}
+function abrir(nome){
+  produto = nome;
+  document.getElementById("painel-produto").textContent = nome;
+  document.getElementById("miolo").hidden = false;
+  document.getElementById("final").hidden = true;
+  painel.hidden = false; document.body.style.overflow = "hidden";
+  mostrar(1); document.getElementById("f-nome").focus();
+}
+function fechar(){ painel.hidden = true; document.body.style.overflow = ""; }
+
+document.querySelectorAll("[data-aplicar]").forEach(function(a){
+  a.addEventListener("click", function(e){ e.preventDefault(); abrir(a.getAttribute("data-aplicar")); });
+});
+document.getElementById("fechar").addEventListener("click", fechar);
+document.addEventListener("keydown", function(e){ if(e.key === "Escape" && !painel.hidden) fechar(); });
+btnVoltar.addEventListener("click", function(){ mostrar(atual - 1); });
+
+function validar(n){
+  var passo = form.querySelector('.passo[data-passo="' + n + '"]'), ok = true, primeiro = null;
+  passo.querySelectorAll(".campo").forEach(function(c){
+    var invalido = false;
+    if (c.dataset.grupo) {
+      invalido = !c.querySelector("input:checked");
+    } else {
+      var el = c.querySelector("[required]");
+      if (el) invalido = !el.value.trim() || (el.type === "email" && !/^\S+@\S+\.\S+$/.test(el.value));
+    }
+    c.classList.toggle("invalido", invalido);
+    if (invalido) { ok = false; if (!primeiro) primeiro = c; }
+  });
+  if (primeiro) primeiro.scrollIntoView({ block: "center", behavior: "smooth" });
+  return ok;
+}
+form.addEventListener("change", function(e){
+  var c = e.target.closest(".campo"); if (c) c.classList.remove("invalido");
+});
+
+function coletar(){
+  var dados = { "Produto": produto };
+  new FormData(form).forEach(function(v, k){
+    if (!String(v).trim()) return;
+    dados[k] = dados[k] ? dados[k] + "; " + v : String(v);
+  });
+  return dados;
+}
+function resumo(d){
+  return Object.keys(d).filter(function(k){ return k.charAt(0) !== "_"; })
+    .map(function(k){ return k + ": " + d[k]; }).join("\n");
+}
+function concluir(enviado, dados){
+  var destino = CONFIG.paginaCompra[produto];
+  var botao = document.getElementById("final-botao"), texto = document.getElementById("final-texto");
+  if (enviado && destino) {
+    texto.textContent = "Vou ler com atenção. Agora você já pode garantir a sua vaga.";
+    botao.textContent = "Garantir minha vaga"; botao.href = destino;
+    setTimeout(function(){ location.href = destino; }, 2500);
+  } else if (enviado) {
+    texto.textContent = "Vou ler com atenção e te chamo no WhatsApp. Se preferir, já me manda uma mensagem.";
+    botao.textContent = "Falar com o Rene no WhatsApp";
+    botao.href = wa("Olá, Rene! Acabei de enviar minha aplicação para a " + produto + ". Meu nome é " + (dados["Nome"] || "") + ".");
+  } else {
+    texto.textContent = "Não consegui enviar por aqui. Toque no botão para me mandar as suas respostas pelo WhatsApp, elas já vão escritas.";
+    botao.textContent = "Enviar respostas pelo WhatsApp";
+    botao.href = wa("Olá, Rene! Minha aplicação:\n\n" + resumo(dados));
+  }
+  document.getElementById("miolo").hidden = true;
+  document.getElementById("final").hidden = false;
+  painel.scrollTop = 0;
+}
+
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+  if (!validar(atual)) return;
+  if (atual < 4) { mostrar(atual + 1); return; }
+  var dados = coletar();
+  dados._subject = "Nova aplicação: " + produto + " (" + (dados["Nome"] || "") + ")";
+  dados._template = "table";
+  dados._captcha = "false";
+  btnSeguir.disabled = true; btnSeguir.textContent = "Enviando...";
+  fetch("https://formsubmit.co/ajax/" + CONFIG.emailRene, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+    body: JSON.stringify(dados)
+  }).then(function(r){ return r.json(); })
+    .then(function(j){ concluir(String(j.success) === "true", dados); })
+    .catch(function(){ concluir(false, dados); })
+    .finally(function(){ btnSeguir.disabled = false; });
 });
 </script>
 </body>
