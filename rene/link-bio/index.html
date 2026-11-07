@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rene Cecconello Links</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: coluna única de celular, cartões grandes e inteiros clicáveis, botão dourado em cada um. Identidade Forja: preto, branco, dourado, cinza chumbo. */
+:root{
+  --preto:#0b0b0c;
+  --chumbo:#2b2d31;
+  --chumbo-claro:#3a3d42;
+  --cartao:#16171a;
+  --branco:#f5f3ee;
+  --texto:#c9c7c1;
+  --cinza:#8d8b86;
+  --dourado:#c9a24a;
+  --dourado-vivo:#e0bb5f;
+  --dourado-fundo:rgba(201,162,74,.12);
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --corpo:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--preto)}
+body{margin:0;background:var(--preto);color:var(--texto);font-family:var(--corpo);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--preto)}
+.wrap{max-width:560px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
+
+/* Topo */
+.topo{display:flex;align-items:center;gap:14px;padding-block:22px 18px;border-bottom:1px solid var(--chumbo)}
+.selo{flex:none;width:52px;height:52px;border:1.5px solid var(--dourado);display:grid;place-items:center;font-family:var(--display);font-weight:600;font-size:20px;color:var(--dourado);letter-spacing:.02em}
+.topo small{display:block;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--cinza);font-weight:600}
+.topo strong{display:block;font-family:var(--display);font-weight:500;font-size:22px;color:var(--branco);line-height:1.2}
+
+/* Abertura */
+.abertura{padding-block:30px 8px}
+.olho{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--dourado);font-weight:700;margin:0 0 12px}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(30px,8.4vw,40px);line-height:1.12;color:var(--branco);margin:0 0 14px;text-wrap:balance}
+.abertura p.sub{margin:0;font-size:17px;color:var(--texto);max-width:46ch}
+.abertura p.sub b{color:var(--branco);font-weight:700}
+
+/* Seções */
+.secao{margin-top:34px;display:flex;flex-direction:column;gap:14px}
+.secao h2{margin:0;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--branco);font-weight:800;display:flex;align-items:center;gap:12px}
+.secao h2::after{content:"";flex:1;height:1px;background:var(--chumbo)}
+.secao .para{margin:-4px 0 2px;font-size:15px;color:var(--cinza)}
+
+/* Cartões */
+a.cartao{display:flex;flex-direction:column;gap:12px;text-decoration:none;color:inherit;background:var(--cartao);border:1.5px solid var(--chumbo-claro);border-radius:14px;padding:22px 20px 20px;transition:border-color .2s,transform .2s,background .2s}
+a.cartao:hover{border-color:var(--dourado);background:#1a1b1f}
+a.cartao:active{transform:scale(.99)}
+a.cartao:focus-visible{outline:3px solid var(--dourado-vivo);outline-offset:3px}
+a.cartao.destaque{border-color:var(--dourado);box-shadow:0 0 0 1px var(--dourado) inset}
+.linha-topo{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.etiqueta{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--dourado);background:var(--dourado-fundo);border:1px solid rgba(201,162,74,.35);padding:6px 11px;border-radius:999px}
+.etiqueta.neutra{color:var(--branco);background:var(--chumbo);border-color:var(--chumbo-claro)}
+.preco{font-family:var(--display);font-weight:600;font-size:26px;color:var(--branco);line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
+.preco span{font-family:var(--corpo);font-size:14px;font-weight:700;color:var(--dourado);margin-right:3px}
+.cartao h3{margin:0;font-family:var(--display);font-weight:600;font-size:clamp(24px,6.6vw,28px);line-height:1.15;color:var(--branco);text-wrap:balance}
+.cartao p{margin:0;font-size:16px;color:var(--texto)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{font-size:14px;font-weight:600;color:var(--branco);background:var(--chumbo);padding:7px 12px;border-radius:999px}
+.botao{margin-top:6px;display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:14px 18px;border-radius:10px;background:var(--dourado);color:var(--preto);font-weight:800;font-size:16.5px;letter-spacing:.01em;text-align:center;transition:background .2s}
+a.cartao:hover .botao{background:var(--dourado-vivo)}
+.botao svg{flex:none;width:22px;height:22px}
+.botao.contorno{background:transparent;color:var(--dourado-vivo);border:1.5px solid var(--dourado)}
+a.cartao:hover .botao.contorno{background:var(--dourado-fundo)}
+.nota{font-size:13.5px;color:var(--cinza);display:flex;align-items:center;gap:8px}
+.nota::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--dourado);flex:none}
+
+/* Método e rodapé */
+.metodo{margin-top:40px;border:1px solid var(--chumbo);border-radius:14px;padding:20px}
+.metodo small{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--cinza);font-weight:700;margin-bottom:12px}
+.pilares{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;font-family:var(--display);font-size:19px;color:var(--branco)}
+.pilares i{font-style:normal;color:var(--dourado)}
+.metodo p{margin:12px 0 0;font-size:15px;color:var(--texto)}
+footer{margin-top:32px;padding-top:18px;border-top:1px solid var(--chumbo);font-size:13px;color:var(--cinza);text-align:center}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="topo">
+    <div class="selo" aria-hidden="true">RC</div>
+    <div>
+      <small>Mentor de líderes</small>
+      <strong>Rene Cecconello</strong>
+    </div>
+  </header>
+
+  <section class="abertura">
+    <p class="olho">Por onde começar</p>
+    <h1>Me conta em que cadeira você está hoje.</h1>
+    <p class="sub">Cada opção abaixo abre uma conversa comigo no WhatsApp. <b>Toque no cartão que mais parece com o seu momento</b> e a gente começa por ali.</p>
+  </section>
+
+  <section class="secao" aria-labelledby="s1">
+    <h2 id="s1">Comece por aqui</h2>
+
+    <a class="cartao destaque" data-msg="Olá, Rene! Quero fazer o Diagnóstico de Liderança (R$ 100)." href="#">
+      <div class="linha-topo">
+        <span class="etiqueta">Diagnóstico</span>
+        <div class="preco"><span>R$</span>100</div>
+      </div>
+      <h3>Diagnóstico de liderança</h3>
+      <p>Antes de qualquer solução, eu preciso entender o que está travando você. O problema que você traz muitas vezes é sintoma. Aqui a gente olha a causa e define o próximo passo.</p>
+      <span class="botao"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>Quero meu diagnóstico</span>
+    </a>
+
+    <a class="cartao" data-msg="Olá, Rene! Quero participar do Comunicação entre Gerações (R$ 74,90)." href="#">
+      <div class="linha-topo">
+        <span class="etiqueta">Comunicação geracional</span>
+        <div class="preco"><span>R$</span>74,90</div>
+      </div>
+      <h3>Liderar gerações diferentes no mesmo time</h3>
+      <p>Como falar com quem tem 22 e com quem tem 55 anos na mesma equipe, ser entendido pelos dois e manter a autoridade sem culpar a geração.</p>
+      <span class="botao"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>Quero participar</span>
+    </a>
+  </section>
+
+  <section class="secao" aria-labelledby="s2">
+    <h2 id="s2">Sou líder</h2>
+    <p class="para">Coordenador, supervisor, gerente ou head. Você lidera pessoas e responde para alguém acima.</p>
+
+    <a class="cartao" data-msg="Olá, Rene! Quero aplicar para a Mentoria Individual." href="#">
+      <div class="linha-topo">
+        <span class="etiqueta">Mentoria individual</span>
+        <span class="etiqueta neutra">Por aplicação</span>
+      </div>
+      <h3>Seja levado a sério pela sua equipe sem virar o chefe chato</h3>
+      <p>Encontros um a um, no seu caso real. Você sai com acordo de expectativas, conversas difíceis conduzidas e um time que resolve sem depender de você para tudo.</p>
+      <span class="botao"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>Quero aplicar</span>
+    </a>
+
+    <a class="cartao" data-msg="Olá, Rene! Quero aplicar para a Mentoria em Grupo." href="#">
+      <div class="linha-topo">
+        <span class="etiqueta">Mentoria em grupo</span>
+        <span class="etiqueta neutra">Por aplicação</span>
+      </div>
+      <h3>O mesmo método, ao lado de líderes na mesma pressão</h3>
+      <p>Você trabalha o seu caso e ainda aprende com o que outros líderes de meio de campo estão enfrentando, cobrados por cima e esperados por baixo.</p>
+      <span class="botao"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>Quero aplicar</span>
+    </a>
+  </section>
+
+  <section class="secao" aria-labelledby="s3">
+    <h2 id="s3">Sou dono ou sócio</h2>
+
+    <a class="cartao" data-msg="Olá, Rene! Sou dono/sócio e quero saber sobre o Programa para Diretores." href="#">
+      <div class="linha-topo">
+        <span class="etiqueta">Programa para diretores</span>
+      </div>
+      <h3>Quando tudo ainda passa pela sua mesa</h3>
+      <p>Para donos, sócios e sucessores que querem uma empresa com regra clara, combinado registrado e gente que decide sem esperar por você.</p>
+      <span class="botao contorno"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>Falar sobre o programa</span>
+    </a>
+  </section>
+
+  <section class="secao" aria-labelledby="s4">
+    <h2 id="s4">Sou empresa</h2>
+
+    <a class="cartao" data-msg="Olá, Rene! Falo em nome de uma empresa e quero conversar sobre um programa para nossos líderes." href="#">
+      <div class="linha-topo">
+        <span class="etiqueta">Programas corporativos</span>
+      </div>
+      <h3>Programas para os líderes da sua empresa</h3>
+      <div class="chips"><span>Palestras</span><span>Treinamentos</span><span>Workshops</span><span>Líderes e equipes</span><span>Online e presencial</span></div>
+      <p>Montados a partir do diagnóstico da sua operação, com o que os seus líderes estão vivendo hoje.</p>
+      <span class="botao contorno"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>Falar sobre a minha empresa</span>
+    </a>
+  </section>
+
+  <aside class="metodo">
+    <small>O método</small>
+    <div class="pilares">Posicionamento <i>→</i> Autoridade <i>→</i> Legado</div>
+    <p>Quem você é como líder, como a equipe passa a te reconhecer e o que continua funcionando quando você não está.</p>
+  </aside>
+
+  <footer>Rene Cecconello · Mentoria de líderes</footer>
+</div>
+
+<script>
+/* TROCAR AQUI: número do WhatsApp com 55 + DDD + número, só dígitos */
+var WHATSAPP = "5554999999999";
+document.querySelectorAll("a.cartao").forEach(function(a){
+  a.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(a.getAttribute("data-msg"));
+  a.target = "_blank";
+  a.rel = "noopener";
+});
+</script>
+</body>
+</html>
